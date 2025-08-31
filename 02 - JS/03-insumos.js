@@ -1,9 +1,52 @@
-// ============================
-//  INSUMOS.JS
-// ============================
+window.onload = function gerar_codigo_insumo_fixo(){
+    const tam_lista_insumos_fixo = cadastro_cod_insumos_fixos.length +1;
+    codigo_insumo_fixo.value = tam_lista_insumos_fixo; 
+}
 
+const cadastros_insumos_fixos = []
+const cadastro_cod_insumos_fixos = []
+
+var codigo_insumo_fixo = document.getElementById('codigo_insumo_fixo');
+var nome_insumo_fixo = document.getElementById('nome_insumo_fixo');
+var valor_insumo_fixo = document.getElementById('valor_insumo_fixo');
+var dias_insumo_fixo = document.getElementById('dias_insumo_fixo');
+var minutos_insumo_fixo = document.getElementById('minutos_insumo_fixo');
+
+
+
+function calcular_minutos(){
+    var minutos_trabalho = 60*8;
+
+    dias_insumo_fixo_valor = parseInt(dias_insumo_fixo.value)
+    valor_insumo_fixo_valor = parseFloat(valor_insumo_fixo.value)
+    if(isNaN(valor_insumo_fixo_valor)|| isNaN(dias_insumo_fixo_valor)){
+        minutos_insumo_fixo.value = 0;
+    }
+    else{
+        var valor_minuto_insumo = (valor_insumo_fixo_valor/dias_insumo_fixo_valor/minutos_trabalho).toFixed(2);
+        minutos_insumo_fixo.value = valor_minuto_insumo;
+    }
+}
+
+function salvar_insumos_fixos(){
+const novo_insumo = {
+    codigo_insumo_fx : codigo_insumo_fixo.value,
+    nome_insumo_fx : nome_insumo_fixo.value,
+    valor_insumo_fx : valor_insumo_fixo.value,
+    dias_insumo_fx : dias_insumo_fixo.value,
+    minutos_insumo_fx : minutos_insumo_fixo.value,
+}
+
+cadastros_insumos_fixos.push(novo_insumo);
+codigo_insumo_fixo.disabled = true;
+nome_insumo_fixo.disabled = true;
+valor_insumo_fixo.disabled = true;
+dias_insumo_fixo.disabled = true;
+minutos_insumo_fixo.disabled = true;
+}
 // Array para armazenar os insumos
 let lista_insumos = [];
+
 
 // Variáveis para elementos do formulário
 let codigo_insumo, data_info_insumo, nome_insumo, fornecedor_insumo,

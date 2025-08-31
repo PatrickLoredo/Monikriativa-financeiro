@@ -1,5 +1,12 @@
 const cadastros_insumos_fixos = []
+const cadastro_cod_insumos_fixos = []
 
+window.onload = function gerar_codigo_insumo_fixo(){
+    const tam_lista_insumos_fixo = cadastro_cod_insumos_fixos.length;
+    codigo_insumo_fixo.value = tam_lista_insumos_fixo; 
+}
+
+var codigo_insumo_fixo = document.getElementById('codigo_insumo_fixo');
 var nome_insumo_fixo = document.getElementById('nome_insumo_fixo');
 var valor_insumo_fixo = document.getElementById('valor_insumo_fixo');
 var dias_insumo_fixo = document.getElementById('dias_insumo_fixo');
@@ -21,6 +28,7 @@ function calcular_minutos(){
 
 function salvar_insumos_fixos(){
 const novo_insumo = {
+    codigo_insumo_fx : codigo_insumo_fixo.value,
     nome_insumo_fx : nome_insumo_fixo.value,
     valor_insumo_fx : valor_insumo_fixo.value,
     dias_insumo_fx : dias_insumo_fixo.value,
@@ -28,7 +36,7 @@ const novo_insumo = {
 }
 
 cadastros_insumos_fixos.push(novo_insumo);
-
+codigo_insumo_fixo.disabled = true;
 nome_insumo_fixo.disabled = true;
 valor_insumo_fixo.disabled = true;
 dias_insumo_fixo.disabled = true;
