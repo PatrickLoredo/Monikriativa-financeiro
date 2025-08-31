@@ -1,4 +1,41 @@
-// Função para selecionar o filtro de busca
+const cadastros_insumos_fixos = []
+
+var nome_insumo_fixo = document.getElementById('nome_insumo_fixo');
+var valor_insumo_fixo = document.getElementById('valor_insumo_fixo');
+var dias_insumo_fixo = document.getElementById('dias_insumo_fixo');
+var minutos_insumo_fixo = document.getElementById('minutos_insumo_fixo');
+
+function calcular_minutos(){
+    var minutos_trabalho = 60*8;
+
+    dias_insumo_fixo_valor = parseInt(dias_insumo_fixo.value)
+    valor_insumo_fixo_valor = parseFloat(valor_insumo_fixo.value)
+    if(isNaN(valor_insumo_fixo_valor)|| isNaN(dias_insumo_fixo_valor)){
+        minutos_insumo_fixo.value = 0;
+    }
+    else{
+        var valor_minuto_insumo = (valor_insumo_fixo_valor/dias_insumo_fixo_valor/minutos_trabalho).toFixed(2);
+        minutos_insumo_fixo.value = valor_minuto_insumo;
+    }
+}
+
+function salvar_insumos_fixos(){
+const novo_insumo = {
+    nome_insumo_fx : nome_insumo_fixo.value,
+    valor_insumo_fx : valor_insumo_fixo.value,
+    dias_insumo_fx : dias_insumo_fixo.value,
+    minutos_insumo_fx : minutos_insumo_fixo.value,
+}
+
+cadastros_insumos_fixos.push(novo_insumo);
+
+nome_insumo_fixo.disabled = true;
+valor_insumo_fixo.disabled = true;
+dias_insumo_fixo.disabled = true;
+minutos_insumo_fixo.disabled = true;
+}
+
+
 function seleciona_filtro_busca_produtos() {
     var filtro = document.getElementById("filtroPesquisa").value;
     var inputPesquisa = document.getElementById("searchInput");
