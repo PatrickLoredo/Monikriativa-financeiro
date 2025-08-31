@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Monikriativa - Insumos</title>
+        <link rel="stylesheet" href="/SELLER/01 - CSS/03-insumos.css">
+        <script src="/SELLER/02 - JS/03-insumos.js"></script>
+        <script src="https://kit.fontawesome.com/e9987e6d2b.js" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    </head>
+    <body>
+        <!-- Início do Menu Lateral -->
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark"
+            style="width: 280px; height: 100%; position: fixed;" id="lateral-menu">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <div class="row">
+                    <a href="/SELLER/00 - HTML/00-index_padrao.html" style="text-decoration: none; color: white">
+                        <div id="title-brand">
+                            <span class="">Monikriativa</span>
+                        </div>
+                        <div id="subtitulo-brand">
+                            <span class="">Papelaria Artesanal Criativa</span>
+                        </div>
+                    </a>
+                </div>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto" id="menu-lateral">
+                <li class="">
+                    <a href="/SELLER/00 - HTML/00-index_padrao.html" class="nav-link text-white">
+                        <i class="fa-solid fa-house">&nbsp;</i>
+                        <span>Início</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/SELLER/00 - HTML/01-minhas_vendas.html" class="nav-link text-white">
+                        <i class="fa-solid fa-cart-shopping">&nbsp;</i>
+                        <span>Minhas Vendas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/SELLER/00 - HTML/02-produtos.html" class="nav-link text-white">
+                        <i class="fa-solid fa-table">&nbsp;</i>
+                        <span>Produtos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/SELLER/00 - HTML/03-insumos.html" class="nav-link text-white active">
+                        <i class="fa-solid fa-table">&nbsp;</i>
+                        <span>Insumos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/SELLER/00 - HTML/04-clientes.html" class="nav-link text-white">
+                        <i class="fa-solid fa-users">&nbsp;</i>
+                        <span>Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/SELLER/00 - HTML/05-fornecedores.html" class="nav-link text-white">
+                        <i class="fa-solid fa-truck">&nbsp;</i>
+                        <span>Fornecedores</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/SELLER/00 - HTML/06-gestao_estoque.html" class="nav-link text-white">
+                        <i class="fa-solid fa-boxes-packing">&nbsp;</i>
+                        <span>Gestão de Estoque</span>
+                    </a>
+                </li>
+                <li>
+                    <hr>
+                </li>
+                <li>
+                    <a href="/SELLER/00 - HTML/07-meu_financeiro.html" class="nav-link text-white">
+                        <i class="fa-solid fa-sack-dollar">&nbsp;</i>
+                        <span>Meu Financeiro</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/SELLER/00 - HTML/08-acessos_permissoes.html" class="nav-link text-white">
+                        <i class="fa-solid fa-lock-open">&nbsp;</i>
+                        <span>Acessos e Permissões</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/SELLER/00 - HTML/09-configuracoes.html" class="nav-link text-white">
+                        <i class="fa-solid fa-gear">&nbsp;</i>
+                        <span>Configurações</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!--Final do Menu Lateral-->
+        
+        <!--BADGE-->
+        <!--Botão Alerta de Notificações-->
+        <div>
+            <button class="btn btn-warning text-white" id="button-alert-main">
+                <i class="fa-solid fa-bell"></i>
+                <span class="badge rounded-pill bg-danger">
+                    +99
+                    <span class="visually-hidden">unread messages</span>
+                </span>
+            </button>
+        </div>
+        <!--FINAL BADGE-->
+        
+        <!--Botão Whatsapp-->
+        <div>
+            <button class="btn btn-success" id="button-whatsapp">
+                <i class="fa fa-solid fa-whatsapp"></i>
+            </button>
+        </div>
+        <!--Final Botão Whatsapp-->
+
+        <!-- Modal Cadastro Insumo-->
+        <div class="modal fade" id="modal_insumos" tabindex="-1" 
+        aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal_insumosTitle">
+                            Cadastro de Novo Insumo
+                        </h5>
+                        <button type="button" class="btn-close" 
+                        data-bs-dismiss="modal" 
+                        aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-2">
+                                <label class="" 
+                                for="codigoinsumos">Código</label>
+                                <input type="text" class="form-control" 
+                                id="codigo_insumos">
+                            </div>
+                            <div class="col">
+                                <label for="">Data da Informação</label>
+                                <div>
+                                    <input type="date" name="" 
+                                    id="data_compra_insumos" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <label class="" 
+                                for="nomeinsumos">Nome do Insumo</label>
+                                <input type="text" class="form-control" 
+                                id="nome_insumos">
+                            </div>
+                            <div class="col">
+                                <label class="" 
+                                for="categoriainsumo">Categoria</label>
+                                <div class="input-group">
+                                    <select name="" id="categoria_insumos" class="form-select">
+                                        <option value=""></option>
+                                    </select>
+                                    <div class="input-group-text">
+                                        <i class="fa fa-solid fa-plus-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-3">
+                                <label class="" 
+                                for="fornecedorinsumos">Fornecedor</label>
+                                <select name="fornecedor_insumos" 
+                                id="fornecedor_insumos"
+                                class="form-select">
+                                    <option value=""></option>
+                                    <option value="Fornecedor 01">Fornecedor 01</option>
+                                    <option value="Fornecedor 02">Fornecedor 02</option>
+                                    <option value="Fornecedor 03">Fornecedor 03</option>
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <label for="">Qtd Comprada</label>
+                                <div class="">
+                                    <input type="text" class="form-control" 
+                                    id="qtd_compra_insumos">
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <label for="">Preço Total</label>
+                                <div class="">
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-solid fa-dollar-sign">
+                                                &nbsp;
+                                            </i>
+                                        </div>
+                                        <input type="text" 
+                                        class="form-control" 
+                                        id="preco_total_insumos">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <label for="">Frete</label>
+                                <div class="">
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-solid fa-dollar-sign">
+                                                &nbsp;
+                                            </i>
+                                        </div>
+                                        <input type="text" class="form-control" 
+                                        id="frete_insumos">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <label for="">Preço Unitário</label>
+                                <div class="">
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-solid fa-dollar-sign">
+                                                &nbsp;
+                                            </i>
+                                        </div>
+                                        <input type="text" 
+                                        class="form-control" 
+                                        id="preco_unitario_insumos"
+                                        onclick="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                                <label for="">
+                                    Link da Compra / Local da Compra
+                                </label>
+                                <div class="">
+                                    <input type="text" 
+                                    class="form-control" 
+                                    id="local_compra_insumos">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="">
+                                    Observações
+                                </label>
+                                <div class="">
+                                    <input type="text" 
+                                    class="form-control" 
+                                    id="local_compra_insumos">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4"><hr></div>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <button class="btn btn-success mx-1" 
+                                onclick="salvar_insumos()"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modal-confirmar-cadastro-insumo">
+                                    <i class="fa-solid fa-floppy-disk"></i>
+                                    &nbsp; Salvar
+                                </button>
+                                <button class="btn btn-primary mx-1" 
+                                onclick="limpar_dados()">
+                                    <i class="fa-solid fa-eraser"></i>
+                                    &nbsp; Limpar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" 
+                    data-bs-dismiss="modal">Fechar</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Modal Confirmação de Cadastro-->
+        <div class="modal fade" id="modal-confirmar-cadastro-insumo" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="fs-5 title-main">Confirmação de Cadastro</h5>
+                    </div>
+                    <div class="modal-body" id="modal-confirmar-insumo-modalBody">
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success">Realizar novo Cadastro</button>
+                        <button class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botão do WhatsApp -->
+        <button class="btn btn-success" id="button-whatsapp">
+            <i class="fa fa-solid fa-whatsapp"></i>
+        </button>
+
+        <!-- Início do Conteúdo Principal --> 
+        <div class="b-example-divider">
+            <div class="container" style="margin-left: 300px;">
+                    <div class="row" id="cards-inicial-resumo">
+                        <div class="col-11">
+                            <div class="col mt-4">
+                            <div class="card card-principal">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="m-1 title-main">
+                                                Insumos Cadastrados
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <label for="searchInput"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Paginação e Tabela -->
+                                    <div class="row text-center">
+                                        <div class="row my-3">
+                                            <!--Paginação-->
+                                            <div class="col-3">
+                                                <button class="btn btn-warning"
+                                                    data-bs-toggle="modal"; 
+                                                    data-bs-target="#modal_insumos"; 
+                                                    onclick="atualiza_codigo_insumo()">
+                                                    <i class="fa-solid fa-circle-plus"></i>&nbsp; 
+                                                    Adicionar Insumo                                     
+                                                </button>
+                                            </div>
+
+                                            <div class="col-3" 
+                                            id="paginacao_tabela_insumos">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" 
+                                                        for="filtroPesquisa">
+                                                            <i class="fa fa-solid fa-barcode" 
+                                                            id="icon-filtro-pesquisa"></i>
+                                                        </span>
+                                                    </div>
+                                                    <select id="filtroPesquisa" 
+                                                    class="form-select" 
+                                                    onclick="seleciona_filtro_busca_insumo()">
+                                                        <option value="codigo" 
+                                                        selected>Código</option>
+                                                        <option value="nome">Nome</option>
+                                                        <option value="nome">Nome</option>
+                                                        <option value="nascimento">Categoria</option>
+                                                        <option value="cpf">Fornecedor</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-4" 
+                                            id="input_pesquisa_Insumos">
+                                                <input type="text" 
+                                                id="searchInput" 
+                                                class="form-control" 
+                                                placeholder="Digite o código do Insumo">
+                                            </div>
+                                            <div class="col-1">
+                                                <button id="searchButton" 
+                                                class="btn btn-primary form-control">
+                                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                                    &nbsp;
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Tabela de Insumos -->
+                                        <table class="my-5">
+                                            <thead class="">
+                                                <tr>
+                                                    <th>Código</th>
+                                                    <th>Data</th>
+                                                    <th>Nome</th>
+                                                    <th>Categoria</th>
+                                                    <th>Fornecedor</th>
+                                                    <th>Custo</th>
+                                                    <th>Estoque</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="mt-2" 
+                                            id="body-tabela-insumos">
+                                                <!-- Linhas da tabela serão adicionadas aqui dinamicamente -->
+                                            </tbody>
+                                        </table>
+
+                                        <!-- Paginação -->
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="col justify-content-end">
+                                                <button class="btn btn-dark btn-small">
+                                                    <i class="fa-solid fa-angle-left"></i>
+                                                </button>
+                                                <button class="btn btn-danger">1</button>
+                                                <button class="btn btn-primary">2</button>
+                                                <button class="btn btn-primary">3</button>
+                                                <button class="btn btn-dark btn-small">
+                                                    <i class="fa-solid fa-angle-right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+
+    </>
+</html>

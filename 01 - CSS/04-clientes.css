@@ -1,0 +1,90 @@
+#menu-lateral .nav-link{
+    margin: 1px 0;
+}
+#menu-lateral .nav-link:hover{
+    background-color: #0d479c;
+}
+#lateral-menu{
+    z-index: 2;
+}
+#cards-inicial-resumo .card-principal{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+#title-brand,
+#subtitulo-brand{
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+}
+#button-alert-main{
+    float: right;
+    position: fixed;
+    top: 20px;
+    right: 10px;
+    z-index: 9999;
+    border-radius: 360px;
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+}
+#button-alert-main span{
+    position: absolute;
+    top: 40px;
+    height: 20px;
+    right: 30px;
+    font-size: 10px;
+}
+.badge{
+    position: absolute;
+    bottom: 10px;
+}
+#button-whatsapp{
+    float: right;
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    z-index: 9999;
+    border-radius: 360px;
+    width: 50px;
+    height: 50px;
+    font-size: 23px;
+}
+.title-main{
+    font-size: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    padding: 3px 5px;
+}
+#title-brand{
+    font-size: 25px;
+}
+#subtitulo-brand{
+    font-size: 11px;
+    padding-top: 2%;
+}
+.btn-small i{
+    font-size: 0.7rem;
+    margin: auto;
+}
+.input-group-text {
+    height: 100%;
+}
+tbody tr {
+    transition: all 0.2s ease;
+}
+tbody td,
+thead th{
+    padding: 5px 7px;
+    border: 1px solid lightgray;
+}
+tbody tr:hover {
+    background-color: #d7eaff;;
+}
+tbody tr{
+    cursor: pointer;
+    margin-top: 10px;
+}
+.modal{
+    width: 700px;
+}

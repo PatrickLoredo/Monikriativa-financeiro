@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Monikriativa - Produtos</title>
+        <link rel="stylesheet" href="/SELLER/01 - CSS/02-meus_produtos.css">
+        <script src="/SELLER/02 - JS/02-produtos.js"></script>
+        <script src="https://kit.fontawesome.com/e9987e6d2b.js" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    </head>
+    <body>
+    
+        <!-- Início do Menu Lateral -->
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark"
+            style="width: 280px; height: 100%; position: fixed;" id="lateral-menu">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                <div class="row">
+                    <a href="/SELLER/00 - HTML/00-index_padrao.html" style="text-decoration: none; color: white">
+                        <div id="title-brand">
+                            <span class="">Monikriativa</span>
+                        </div>
+                        <div id="subtitulo-brand">
+                            <span class="">Papelaria Artesanal Criativa</span>
+                        </div>
+                    </a>
+                </div>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto" id="menu-lateral">
+                <li class="">
+                    <a href="/SELLER/00 - HTML/00-index_padrao.html" class="nav-link text-white">
+                        <i class="fa-solid fa-house">&nbsp;</i>
+                        <span>Início</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/SELLER/00 - HTML/01-minhas_vendas.html" class="nav-link text-white">
+                        <i class="fa-solid fa-cart-shopping">&nbsp;</i>
+                        <span>Minhas Vendas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/SELLER/00 - HTML/02-produtos.html" class="nav-link text-white active">
+                        <i class="fa-solid fa-table">&nbsp;</i>
+                        <span>Produtos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/SELLER/00 - HTML/03-insumos.html" class="nav-link text-white">
+                        <i class="fa-solid fa-table">&nbsp;</i>
+                        <span>Insumos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/SELLER/00 - HTML/04-clientes.html" class="nav-link text-white">
+                        <i class="fa-solid fa-users">&nbsp;</i>
+                        <span>Clientes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/SELLER/00 - HTML/05-fornecedores.html" class="nav-link text-white">
+                        <i class="fa-solid fa-truck">&nbsp;</i>
+                        <span>Fornecedores</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/SELLER/00 - HTML/06-gestao_estoque.html" class="nav-link text-white">
+                        <i class="fa-solid fa-boxes-packing">&nbsp;</i>
+                        <span>Gestão de Estoque</span>
+                    </a>
+                </li>
+                <li>
+                    <hr>
+                </li>
+                <li>
+                    <a href="/SELLER/00 - HTML/07-meu_financeiro.html" class="nav-link text-white">
+                        <i class="fa-solid fa-sack-dollar">&nbsp;</i>
+                        <span>Meu Financeiro</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/SELLER/00 - HTML/08-acessos_permissoes.html" class="nav-link text-white">
+                        <i class="fa-solid fa-lock-open">&nbsp;</i>
+                        <span>Acessos e Permissões</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/SELLER/00 - HTML/09-configuracoes.html" class="nav-link text-white">
+                        <i class="fa-solid fa-gear">&nbsp;</i>
+                        <span>Configurações</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!--Final do Menu Lateral-->
+
+        <!--BADGE-->
+        <!--Botão Alerta de Notificações-->
+        <div>
+            <button class="btn btn-warning text-white" id="button-alert-main">
+                <i class="fa-solid fa-bell"></i>
+                <span class="badge rounded-pill bg-danger">
+                    +99
+                    <span class="visually-hidden">unread messages</span>
+                </span>
+            </button>
+        </div>
+        <!--FINAL BADGE-->
+
+        <!--Botão Whatsapp-->
+        <div>
+            <button class="btn btn-success" id="button-whatsapp">
+                <i class="fa fa-solid fa-whatsapp"></i>
+            </button>
+        </div>
+        <!--Final Botão Whatsapp-->
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal_cadastro_produtos" tabindex="-1" 
+        aria-labelledby="modal_cadastro_produtos" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal_cadastro_produtos_titulo">
+                            Cadastro de Novo Produto
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" 
+                        aria-label="Fechar"></button>
+                    </div>
+                
+                    <div class="modal-body m-auto">
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="">Código</label>
+                                <div class="pt-1"><input type="text" class="form-control"></div>
+                            </div>
+                            <div class="col-6">
+                                <label for="nome_produto">Nome Produto</label>
+                                <div class="pt-1">
+                                    <input type="text" class="form-control" id="nome_produto">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <label for="">Categoria</label>
+                                <div class="pt-1">
+                                    <select name="" id="" class="form-control">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4 mt-2">
+                                    <label for="">Custos Insumos</label>
+                                    <div class="pt-1">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="form-check">
+                                                    <input type="radio" name="custos_insumos" id="custos_insumos_sim" class="form-check-input" checked>
+                                                    <label class="form-check-label" for="custos_insumos_sim">Sei</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="radio" name="custos_insumos" id="custos_insumos_nao" class="form-check-input" onclick="custo_nao_sabe()">
+                                                    <label class="form-check-label" for="custos_insumos_nao">Não sei</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 d-flex align-items-center">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">R$</span>
+                                                    <input type="text" class="form-control" id="valor_insumo_input">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2 mt-1">
+                                    <label for="">Preço de Venda</label>
+                                    <div class="pt-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">R$</span>
+                                            <input type="text" class="form-control" id="valor_venda_input">
+                                        </div>
+                                    </div> 
+                                </div>                           
+                                <div class="col-2 mt-1">
+                                    <label for="">Lucro</label>
+                                    <div class="pt-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">R$</span>
+                                            <input type="text" class="form-control" id="valor_venda_input" disabled>
+                                        </div>
+                                    </div> 
+                                </div>                           
+                            </div>
+                            
+
+                        
+                        <div class="col mt-4">
+                            <button class="btn btn-success" onclick="salvar_cliente()">
+                                <i class="fa-solid fa-floppy-disk"></i>&nbsp;
+                                Salvar
+                            </button>
+                            <button class="btn btn-primary" onclick="editar_cliente()">
+                                <i class="fa-solid fa-pencil"></i>&nbsp;
+                                Editar
+                            </button>
+                            <button class="btn btn-danger" onclick="limpar_dados()">
+                                <i class="fa-solid fa-trash"></i>&nbsp;
+                                Limpar Dados
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+                </div>
+            </div>
+        </div>
+            
+        <!-- Início do Conteúdo Principal -->
+        <div class="b-example-divider">
+            <div class="container" style="margin-left: 300px;">
+                    <div class="row" id="cards-inicial-resumo">
+                        <div class="col-11">
+                            <div class="col mt-4">
+                            <div class="card card-principal">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="m-1 title-main">Meus Produtos</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <label for="searchInput"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Paginação e Tabela -->
+                                    <div class="row text-center">
+                                        <div class="row my-3">
+                                            <!--Paginação-->
+                                            <div class="col-3">
+                                                <button class="btn btn-danger"
+                                                    data-bs-toggle="modal" 
+                                                    data-bs-target="#modal_cadastro_produtos"  onclick="atualiza_codigo_produto()">
+                                                    <i class="fa-solid fa-circle-plus"></i>&nbsp; Adicionar Produto                                     
+                                                </button>
+                                            </div>
+
+                                            <div class="col-3" id="paginacao_tabela_produtos">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" for="filtroPesquisa">
+                                                            <i class="fa fa-solid fa-barcode" id="icon-filtro-pesquisa"></i>
+                                                        </span>
+                                                    </div>
+                                                    <select id="filtroPesquisa" class="form-select" onclick="seleciona_filtro_busca_produtos()">
+                                                        <option value="codigo" selected>Código</option>
+                                                        <option value="nome">Nome</option>
+                                                        <option value="categoria">Categoria</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-4" id="input_pesquisa_vendas">
+                                                <input type="text" id="searchInput" class="form-control" placeholder="Digite o Código do Produto">
+                                            </div>
+                                                <div class="col-1">
+                                                    <button id="searchButton" class="btn btn-primary form-control">
+                                                        <i class="fa-solid fa-magnifying-glass"></i>&nbsp;
+                                                    </button>
+                                                </div>
+                                        </div>
+                                        <!-- Tabela de Vendas -->
+                                        <table class="my-5">
+                                            <thead class="">
+                                                <tr>
+                                                    <th>Código</th>
+                                                    <th>Nome</th>
+                                                    <th>Categoria</th>
+                                                    <th>Preço Custo</th>
+                                                    <th>Preço Venda</th>
+                                                    <th>Estoque</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="mt-2" id="body-tabela-produtos">
+                                                
+                                            </tbody>
+                                        </table>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="col justify-content-end">
+                                                <button class="btn btn-dark btn-small">
+                                                    <i class="fa-solid fa-angle-left"></i>
+                                                </button>
+                                                <button class="btn btn-danger">1</button>
+                                                <button class="btn btn-primary">2</button>
+                                                <button class="btn btn-primary">3</button>
+                                                <button class="btn btn-dark btn-small">
+                                                    <i class="fa-solid fa-angle-right"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-principal">
+                                <div class="card-body" id="card-insumo-fixo">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="m-1 title-main">Insumos Fixos</div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <label for="searchInput"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Paginação e Tabela -->
+                                    <div class="row text-center">
+                                        <div class="row my-3">
+                                            <div class="col">
+                                                <div class="label">Nome da Despesa</div>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="label">Valor da Despesa</div>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="col-1">
+                                                <div class="label">Dias</div>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="col-1">
+                                                <div class="label">Minuto</div>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                            <div class="col-2">
+                                                <label for="">&nbsp;</label>
+                                                <div>
+                                                    <button class="btn btn-success" onclick="congela_insumo_fixo()">
+                                                        <i class="fa-solid fa-floppy-disk"></i>
+                                                    </button>
+                                                    <button class="btn btn-primary" style="border-radius: 360px;">
+                                                        <i class="fa-solid fa-plus" ></i>
+                                                    </button>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    
+    </body>
+</html>

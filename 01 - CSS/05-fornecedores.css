@@ -1,0 +1,89 @@
+#menu-lateral .nav-link{
+    margin: 1px 0;
+}
+#menu-lateral .nav-link:hover{
+    background-color: #0d479c;
+}
+#lateral-menu{
+    z-index: 99;
+}#button-alert-main{
+    float: right;
+    position: fixed;
+    top: 20px;
+    right: 10px;
+    z-index: 9999;
+    border-radius: 360px;
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+}
+#button-alert-main span{
+    position: absolute;
+    top: 40px;
+    height: 20px;
+    right: 30px;
+    font-size: 10px;
+}
+.badge{
+    position: absolute;
+    bottom: 10px;
+}
+#button-whatsapp{
+    float: right;
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    z-index: 9999;
+    border-radius: 360px;
+    width: 50px;
+    height: 50px;
+    font-size: 23px;
+}
+#cards-inicial-resumo .card-principal{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.card.card-resultado-resumoinicial{
+    border: none;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    border: 1px solid transparent;
+}
+.card.card-resultado-resumoinicial:hover{
+    background-color: #f8f9fa;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid lightgray;
+}
+.title-main{
+    font-size: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    padding: 3px 5px;
+}
+#title-brand,
+#subtitulo-brand{
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+}
+#title-brand{
+    font-size: 25px;
+}
+#subtitulo-brand{
+    font-size: 11px;
+    padding-top: 2%;
+}
+#tabela-fornecedores td, #tabela-fornecedores th{
+    border: 1px solid lightgray;
+}
+
+#tabela-fornecedores th {
+    font-size: 0.8rem;
+}
+#tabela-fornecedores tbody td {
+    font-size: 0.8rem;
+    padding: 10px;
+}
+#icon-filtro-pesquisa{
+    height: 100%;
+}
