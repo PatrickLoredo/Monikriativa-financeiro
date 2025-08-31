@@ -1,10 +1,11 @@
-window.onload = function gerar_codigo_insumo_fixo(){
-    const tam_lista_insumos_fixo = cadastro_cod_insumos_fixos.length +1;
-    codigo_insumo_fixo.value = tam_lista_insumos_fixo; 
-}
-
 const cadastros_insumos_fixos = []
 const cadastro_cod_insumos_fixos = []
+let lista_insumos = [];
+
+// Variáveis para elementos do formulário
+let codigo_insumo, data_info_insumo, nome_insumo, fornecedor_insumo,
+    qtd_compra_insumo, preco_total_insumo, frete_insumo, preco_unitario_insumo,
+    local_compra_insumo;
 
 var codigo_insumo_fixo = document.getElementById('codigo_insumo_fixo');
 var nome_insumo_fixo = document.getElementById('nome_insumo_fixo');
@@ -12,8 +13,15 @@ var valor_insumo_fixo = document.getElementById('valor_insumo_fixo');
 var dias_insumo_fixo = document.getElementById('dias_insumo_fixo');
 var minutos_insumo_fixo = document.getElementById('minutos_insumo_fixo');
 
+//-----------------------------------------------------------------------------------------------------------//
 
+//Função para gerar código de insumo fixo ao carregar a página [FUNCIONAMENTO OK]
+window.onload = function gerar_codigo_insumo_fixo(){
+    const tam_lista_insumos_fixo = cadastro_cod_insumos_fixos.length +1;
+    codigo_insumo_fixo.value =    codigo_insumo.value = 'INSMFX_' + String(tam_lista_insumos_fixo).padStart(3, '0'); 
+}
 
+// Calculo de Valor de Insumo Fixo por Minuto de Trabalho [FUNCIONAMENTO OK]
 function calcular_minutos(){
     var minutos_trabalho = 60*8;
 
@@ -28,32 +36,59 @@ function calcular_minutos(){
     }
 }
 
+function mostrar_mensagem_confirmacao_insumo_fixo(codigo, nome) {
+    const body_modal_insumo_fixo = document.getElementById('modal-body-confirmar-cadastro-insumo-fixo');
+    const footer_modal_insumo_fixo = document.getElementById('modal-footer-confirmar-cadastro-insumo-fixo');
+
+    body_modal_insumo_fixo.innerHTML =
+        `<span class=""><b> Código do Insumo:</b> &nbsp;&nbsp;${codigo}</span><br>
+        <span class=""><b> Nome do Insumo:</b> &nbsp;&nbsp;${nome}</span><br>`;
+
+    footer_modal_insumo_fixo.innerHTML =
+        `<row>
+            <col class="m-auto">
+                <button class="btn btn-success">
+                    <i class="fa fa-circle-plus "></i>
+                        Novo Cadastro
+                </button>
+                <button class="btn btn-danger">
+                    <i class="fa fa-x ">&nbsp;&nbsp</i>
+                    Sair
+                </button>
+            </col>
+        </row>`;
+}
+
+// Funcação para salvar dados de cadastro de insumos fixos na lista [FUNCIONAMENTO OK]
 function salvar_insumos_fixos(){
-const novo_insumo = {
-    codigo_insumo_fx : codigo_insumo_fixo.value,
-    nome_insumo_fx : nome_insumo_fixo.value,
-    valor_insumo_fx : valor_insumo_fixo.value,
-    dias_insumo_fx : dias_insumo_fixo.value,
-    minutos_insumo_fx : minutos_insumo_fixo.value,
+    // Pega os elementos do formulário
+    const codigo_insumo_fixo = document.getElementById('codigo_insumo_fixo');
+    const nome_insumo_fixo = document.getElementById('nome_insumo_fixo');
+    const valor_insumo_fixo = document.getElementById('valor_insumo_fixo');
+    const dias_insumo_fixo = document.getElementById('dias_insumo_fixo');
+    const minutos_insumo_fixo = document.getElementById('minutos_insumo_fixo');
+
+    const novo_insumo = {
+        codigo_insumo_fx: codigo_insumo_fixo.value,
+        nome_insumo_fx: nome_insumo_fixo.value,
+        valor_insumo_fx: valor_insumo_fixo.value,
+        dias_insumo_fx: dias_insumo_fixo.value,
+        minutos_insumo_fx: minutos_insumo_fixo.value,
+    };
+
+    cadastros_insumos_fixos.push(novo_insumo);
+
+    codigo_insumo_fixo.disabled = true;
+    nome_insumo_fixo.disabled = true;
+    valor_insumo_fixo.disabled = true;
+    dias_insumo_fixo.disabled = true;
+    minutos_insumo_fixo.disabled = true;
+
+    // Chame a função passando os valores corretos
+    mostrar_mensagem_confirmacao_insumo_fixo(novo_insumo.codigo_insumo_fx, novo_insumo.nome_insumo_fx);
 }
 
-cadastros_insumos_fixos.push(novo_insumo);
-codigo_insumo_fixo.disabled = true;
-nome_insumo_fixo.disabled = true;
-valor_insumo_fixo.disabled = true;
-dias_insumo_fixo.disabled = true;
-minutos_insumo_fixo.disabled = true;
-}
-// Array para armazenar os insumos
-let lista_insumos = [];
-
-
-// Variáveis para elementos do formulário
-let codigo_insumo, data_info_insumo, nome_insumo, fornecedor_insumo,
-    qtd_compra_insumo, preco_total_insumo, frete_insumo, preco_unitario_insumo,
-    local_compra_insumo;
-
-// Inicializa quando o DOM estiver carregado
+// Inicializa quando o DOM estiver carregado [FUNCIONAMENTO OK]
 document.addEventListener('DOMContentLoaded', function () {
     codigo_insumo = document.getElementById("codigo_insumos");
     data_info_insumo = document.getElementById("data_compra_insumos");
@@ -82,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Atualiza data e gera código do insumo
+// Atualiza data e gera código do insumo [FUNCIONAMENTO OK]
 function atualiza_data() {
     const data_atual = new Date();
     const ano = data_atual.getFullYear();
@@ -94,7 +129,7 @@ function atualiza_data() {
     codigo_insumo.value = 'INSM_' + String(cod_proximo_insumo).padStart(3, '0');
 }
 
-// Atualiza apenas o código
+// Atualiza apenas o código [FUNCIONAMENTO OK]
 function atualiza_codigo_insumo() {
     atualiza_data();
 }
@@ -111,7 +146,7 @@ function limpar_dados() {
     atualiza_data();
 }
 
-// Calcula preço unitário
+// Calcula preço unitário [FUNCIONAMENTO OK]
 function calcula_preco_unitario() {
     let preco_unitario = 0;
     if (parseFloat(qtd_compra_insumo.value) > 0) {
