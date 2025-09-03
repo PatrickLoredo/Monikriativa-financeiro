@@ -1,5 +1,6 @@
 const cadastros_insumos_fixos = []
 const cadastro_cod_insumos_fixos = []
+
 let lista_insumos = [];
 
 // Variáveis para elementos do formulário
@@ -14,7 +15,6 @@ var dias_insumo_fixo = document.getElementById('dias_insumo_fixo');
 var minutos_insumo_fixo = document.getElementById('minutos_insumo_fixo');
 
 //-----------------------------------------------------------------------------------------------------------//
-
 //Função para gerar código de insumo fixo ao carregar a página [FUNCIONAMENTO OK]
 window.onload = function gerar_codigo_insumo_fixo(){
     const tam_lista_insumos_fixo = cadastro_cod_insumos_fixos.length +1;
@@ -36,6 +36,7 @@ function calcular_minutos(){
     }
 }
 
+//Mostra a mensagem de confirmação do Cadastro de Insumo Fixo [FUNCIONAMENTO OK]
 function mostrar_mensagem_confirmacao_insumo_fixo(codigo, nome) {
     const body_modal_insumo_fixo = document.getElementById('modal-body-confirmar-cadastro-insumo-fixo');
     const footer_modal_insumo_fixo = document.getElementById('modal-footer-confirmar-cadastro-insumo-fixo');
@@ -51,7 +52,7 @@ function mostrar_mensagem_confirmacao_insumo_fixo(codigo, nome) {
                     <i class="fa fa-circle-plus "></i>
                         Novo Cadastro
                 </button>
-                <button class="btn btn-danger">
+                <button class="btn btn-danger" data-bs-dismiss="modal">
                     <i class="fa fa-x ">&nbsp;&nbsp</i>
                     Sair
                 </button>
@@ -59,7 +60,72 @@ function mostrar_mensagem_confirmacao_insumo_fixo(codigo, nome) {
         </row>`;
 }
 
-// Funcação para salvar dados de cadastro de insumos fixos na lista [FUNCIONAMENTO OK]
+function insumo_fixo_provisorio(){
+    cadastro_provisorio_fixos.push(codigo_insumo_fixo.value);
+}
+
+// Função para adicionar uma nova linha de Insumos Fixos
+function adicionarNovoCampoInsumoFixo(novoCodigo) {
+    const container = document.getElementById('container-insumos-fixos');
+    console.log(lista_insumos.length)
+
+    const novoInsumoHTML = `
+        <div class="row my-3">
+            <div class="col-2">
+                <div class="label">Código Insumo</div>
+                <input type="text" class="form-control text-center" value="${novoCodigo}" disabled>
+            </div>
+            <div class="col">
+                <div class="label">Nome da Despesa</div>
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-2">
+                <div class="label">Valor da Despesa</div>
+                <div class="div">
+                    <div class="input-group">
+                        <div class="input-group-text">
+                            <div class="fa fa-solid fas fa-dollar-sign"></div>
+                        </div>
+                        <input type="text" class="form-control" onkeyup="calcular_minutos()" id=">
+                    </div>
+                </div>
+            </div>
+            <div class="col-1">
+                <div class="label">Dias</div>
+                <input type="text" class="form-control text-center" value="22" onkeyup="calcular_minutos()">
+            </div>
+            <div class="col-2">
+                <div class="label">Custo por Minuto</div>
+                <div class="div">
+                    <div class="input-group">
+                        <div class="input-group-text">
+                            <div class="fa fa-solid fas fa-dollar-sign"></div>
+                        </div>
+                        <input type="text" class="form-control" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <label for="">&nbsp;</label>
+                <div>
+                    <button class="btn btn-success">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                    </button>
+                    <button class="btn btn-warning text-white">
+                        <i class="fa-solid fa-pencil"></i>
+                    </button>
+                    <button class="btn btn-danger">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    container.insertAdjacentHTML('beforeend', novoInsumoHTML);
+}
+
+// Função para salvar dados de cadastro de insumos fixos na lista
 function salvar_insumos_fixos(){
     // Pega os elementos do formulário
     const codigo_insumo_fixo = document.getElementById('codigo_insumo_fixo');
@@ -78,14 +144,22 @@ function salvar_insumos_fixos(){
 
     cadastros_insumos_fixos.push(novo_insumo);
 
+    // Desabilita os inputs da linha que acabou de ser salva
     codigo_insumo_fixo.disabled = true;
     nome_insumo_fixo.disabled = true;
     valor_insumo_fixo.disabled = true;
     dias_insumo_fixo.disabled = true;
     minutos_insumo_fixo.disabled = true;
 
-    // Chame a função passando os valores corretos
+    // Chama a função de mensagem de confirmação
     mostrar_mensagem_confirmacao_insumo_fixo(novo_insumo.codigo_insumo_fx, novo_insumo.nome_insumo_fx);
+
+    // Gera o próximo código sequencial
+    const tam_lista_insumos_fixo = cadastros_insumos_fixos.length + 1;
+    const proximo_codigo = 'INSMFX_' + String(tam_lista_insumos_fixo).padStart(3, '0');
+
+    // Adiciona a nova linha com o código sequencial
+    adicionarNovoCampoInsumoFixo(proximo_codigo);
 }
 
 // Inicializa quando o DOM estiver carregado [FUNCIONAMENTO OK]
@@ -211,7 +285,6 @@ function renderizar_insumo_na_tabela(insumo) {
     const tbody = document.getElementById("body-tabela-insumos");
     const tr = document.createElement("tr");
 
-    // ✅ Se não tiver data_formatada (ex: vindo do localStorage antigo), gera agora
     let data_formatada = insumo.data_formatada;
     if (!data_formatada && insumo.data.includes("-")) {
         const [ano, mes, dia] = insumo.data.split("-");
@@ -258,7 +331,6 @@ function renderizar_insumo_na_tabela(insumo) {
     atualiza_codigo_insumo();
 }
 
-
 // Remover insumo
 function remover_insumo(linha, codigo) {
     linha.remove();
@@ -293,7 +365,8 @@ function carregar_insumos() {
     }
 }
 
-// Atualiza select de fornecedores
+
+// Atualiza select de fornecedores [FUNCIONAMENTO OK]
 function atualizarSelectFornecedores() {
     const select = fornecedor_insumo;
     if (!select) return;
@@ -311,7 +384,8 @@ function atualizarSelectFornecedores() {
     });
 }
 
-// Atualiza select ao carregar a página
+// Atualiza select ao carregar a página [FUNCIONAMENTO OK]
 document.addEventListener('DOMContentLoaded', function () {
     atualizarSelectFornecedores();
 });
+
