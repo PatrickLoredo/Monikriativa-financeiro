@@ -37,21 +37,16 @@ function calcular_minutos(){
 }
 
 //Mostra a mensagem de confirmação do Cadastro de Insumo Fixo [FUNCIONAMENTO OK]
-function mostrar_mensagem_confirmacao_insumo_fixo(codigo, nome) {
+function mostrar_mensagem_confirmacao_insumo_fixo(codigo, nome,valor) {
     const body_modal_insumo_fixo = document.getElementById('modal-body-confirmar-cadastro-insumo-fixo');
     const footer_modal_insumo_fixo = document.getElementById('modal-footer-confirmar-cadastro-insumo-fixo');
 
     body_modal_insumo_fixo.innerHTML =
         `<span class=""><b> Código do Insumo:</b> &nbsp;&nbsp;${codigo}</span><br>
         <span class=""><b> Nome do Insumo:</b> &nbsp;&nbsp;${nome}</span><br>`;
-
     footer_modal_insumo_fixo.innerHTML =
         `<row>
             <col class="m-auto">
-                <button class="btn btn-success">
-                    <i class="fa fa-circle-plus "></i>
-                        Novo Cadastro
-                </button>
                 <button class="btn btn-danger" data-bs-dismiss="modal">
                     <i class="fa fa-x ">&nbsp;&nbsp</i>
                     Sair
@@ -70,53 +65,65 @@ function adicionarNovoCampoInsumoFixo(novoCodigo) {
     console.log(lista_insumos.length)
 
     const novoInsumoHTML = `
-        <div class="row my-3">
-            <div class="col-2">
-                <div class="label">Código Insumo</div>
-                <input type="text" class="form-control text-center" value="${novoCodigo}" disabled>
-            </div>
-            <div class="col">
-                <div class="label">Nome da Despesa</div>
-                <input type="text" class="form-control">
-            </div>
-            <div class="col-2">
-                <div class="label">Valor da Despesa</div>
-                <div class="div">
-                    <div class="input-group">
-                        <div class="input-group-text">
-                            <div class="fa fa-solid fas fa-dollar-sign"></div>
+        <div class="row text-center">
+            <div class="row my-3">
+                <div class="col-2">
+                    <div class="label">Código Insumo</div>
+                    <input type="text" class="form-control text-center" 
+                    id="codigo_insumo_fixo">
+                </div>
+                <div class="col">
+                    <div class="label">Nome da Despesa</div>
+                    <input type="text" class="form-control" 
+                    id="nome_insumo_fixo">
+                </div>
+                <div class="col-2">
+                    <div class="label">Valor da Despesa</div>
+                    <div class="div">
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <div class="fa fa-solid fas fa-dollar-sign"></div>
+                            </div>
+                            <input type="text" class="form-control" 
+                            id="valor_insumo_fixo" 
+                            onkeyup="calcular_minutos()">
                         </div>
-                        <input type="text" class="form-control" onkeyup="calcular_minutos()" id=">
                     </div>
                 </div>
-            </div>
-            <div class="col-1">
-                <div class="label">Dias</div>
-                <input type="text" class="form-control text-center" value="22" onkeyup="calcular_minutos()">
-            </div>
-            <div class="col-2">
-                <div class="label">Custo por Minuto</div>
-                <div class="div">
-                    <div class="input-group">
-                        <div class="input-group-text">
-                            <div class="fa fa-solid fas fa-dollar-sign"></div>
+                <div class="col-1">
+                    <div class="label">Dias</div>
+                <input type="text" class="form-control text-center" value="22" 
+                id="dias_insumo_fixo" onkeyup="calcular_minutos()">
+                </div>
+                <div class="col-2">
+                    <div class="label">Custo por Minuto</div>
+                    <div class="div">
+                        <div class="input-group">
+                            <div class="input-group-text">
+                                <div class="fa fa-solid fas fa-dollar-sign"></div>
+                            </div>
+                            <input type="text" 
+                            class="form-control novo-input-insumo-minuto" 
+                            id="minutos_insumo_fixo" disabled>
                         </div>
-                        <input type="text" class="form-control" disabled>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <label for="">&nbsp;</label>
-                <div>
-                    <button class="btn btn-success">
-                        <i class="fa-solid fa-floppy-disk"></i>
-                    </button>
-                    <button class="btn btn-warning text-white">
-                        <i class="fa-solid fa-pencil"></i>
-                    </button>
-                    <button class="btn btn-danger">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
+                <div class="col">
+                    <label for="">&nbsp;</label>
+                    <div>
+                        <button class="btn btn-success"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modal-confirmar-cadastro-insumo-fixo" 
+                        onclick="salvar_insumos_fixos()">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                        </button>
+                        <button class="btn btn-warning text-white">
+                            <i class="fa-solid fa-pencil"></i>
+                        </button>
+                        <button class="btn btn-danger">
+                            <i class="fa-solid fa-trash" ></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

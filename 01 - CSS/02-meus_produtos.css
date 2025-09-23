@@ -96,3 +96,9 @@ tbody tr{
     cursor: pointer;
     margin-top: 10px;
 }
+.titulo-modal-insumo-nao-sei{
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}

@@ -5,7 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Monikriativa - Produtos</title>
         <link rel="stylesheet" href="/SELLER/01 - CSS/02-meus_produtos.css">
-
         <script src="https://kit.fontawesome.com/e9987e6d2b.js" crossorigin="anonymous"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     </head>
@@ -117,110 +116,6 @@
         <!--Final Botão Whatsapp-->
 
 
-        <!-- Modal -->
-        <div class="modal fade" id="modal_cadastro_produtos" tabindex="-1" 
-        aria-labelledby="modal_cadastro_produtos" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modal_cadastro_produtos_titulo">
-                            Cadastro de Novo Produto
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" 
-                        aria-label="Fechar"></button>
-                    </div>
-                
-                    <div class="modal-body m-auto">
-                        <div class="row">
-                            <div class="col-3">
-                                <label for="">Código</label>
-                                <div class="pt-1"><input type="text" class="form-control"></div>
-                            </div>
-                            <div class="col-6">
-                                <label for="nome_produto">Nome Produto</label>
-                                <div class="pt-1">
-                                    <input type="text" class="form-control" id="nome_produto">
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <label for="">Categoria</label>
-                                <div class="pt-1">
-                                    <select name="" id="" class="form-control">
-                                        <option value=""></option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-4 mt-2">
-                                    <label for="">Custos Insumos</label>
-                                    <div class="pt-1">
-                                        <div class="row">
-                                            <div class="col-5">
-                                                <div class="form-check">
-                                                    <input type="radio" name="custos_insumos" id="custos_insumos_sim" class="form-check-input" checked>
-                                                    <label class="form-check-label" for="custos_insumos_sim">Sei</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input type="radio" name="custos_insumos" id="custos_insumos_nao" class="form-check-input" onclick="custo_nao_sabe()">
-                                                    <label class="form-check-label" for="custos_insumos_nao">Não sei</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 d-flex align-items-center">
-                                                <div class="input-group">
-                                                    <span class="input-group-text">R$</span>
-                                                    <input type="text" class="form-control" id="valor_insumo_input">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-2 mt-1">
-                                    <label for="">Preço de Venda</label>
-                                    <div class="pt-3">
-                                        <div class="input-group">
-                                            <span class="input-group-text">R$</span>
-                                            <input type="text" class="form-control" id="valor_venda_input">
-                                        </div>
-                                    </div> 
-                                </div>                           
-                                <div class="col-2 mt-1">
-                                    <label for="">Lucro</label>
-                                    <div class="pt-3">
-                                        <div class="input-group">
-                                            <span class="input-group-text">R$</span>
-                                            <input type="text" class="form-control" id="valor_lucro_input" disabled>
-                                        </div>
-                                    </div> 
-                                </div>                           
-                            </div>
-                            
-
-                        
-                        <div class="col mt-4">
-                            <button class="btn btn-success" onclick="salvar_cliente()">
-                                <i class="fa-solid fa-floppy-disk"></i>&nbsp;
-                                Salvar
-                            </button>
-                            <button class="btn btn-primary" onclick="editar_cliente()">
-                                <i class="fa-solid fa-pencil"></i>&nbsp;
-                                Editar
-                            </button>
-                            <button class="btn btn-danger" onclick="limpar_dados()">
-                                <i class="fa-solid fa-trash"></i>&nbsp;
-                                Limpar Dados
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                </div>
-                </div>
-            </div>
-        </div>
-            
         <!-- Início do Conteúdo Principal -->
         <div class="b-example-divider">
             <div class="container" style="margin-left: 300px;">
@@ -249,7 +144,8 @@
                                             <div class="col-3">
                                                 <button class="btn btn-danger"
                                                     data-bs-toggle="modal" 
-                                                    data-bs-target="#modal_cadastro_produtos"  onclick="atualiza_codigo_produto()">
+                                                    data-bs-target="#modal_cadastro_produtos"  
+                                                    onclick="atualiza_codigo_produto()" id="button-cadastro-novo-produto">
                                                     <i class="fa-solid fa-circle-plus"></i>&nbsp; Adicionar Produto                                     
                                                 </button>
                                             </div>
@@ -277,7 +173,7 @@
                                                     </button>
                                                 </div>
                                         </div>
-                                        <!-- Tabela de Vendas -->
+                                        <!-- Tabela de Produtos -->
                                         <table class="my-5">
                                             <thead class="">
                                                 <tr>
@@ -318,8 +214,172 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal Adicionar Produto -->
+        <div class="modal fade" id="modal_cadastro_produtos" tabindex="-1" 
+        aria-labelledby="modal_cadastro_produtos" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="row w-100">
+                            <div class="col-11">
+                                <h5 class="fs-5 modal-title" id="modal_cadastro_produtos_titulo">Cadastro de Novo Produto</h5>
+                            </div>
+                            <div class="col text-end">
+                                <button class="btn btn-danger" data-bs-dismiss="modal" id="close-modal-cadastro-produto">
+                                    <i class="fa fa-x"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>                
+                    <div class="modal-body m-auto">
+                        <div class="row">
+                            <div class="col-2">
+                                <label for="">Código</label>
+                                <div class="pt-1">
+                                    <input type="text" class="form-control" id="codigo_produto">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label for="nome_produto">Nome Produto</label>
+                                <div class="pt-1">
+                                    <input type="text" class="form-control" id="nome_produto">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <label for="">Categoria</label>
+                                <div class="pt-1">
+                                    <select name="" id="" class="form-control">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4 mt-2">
+                                    <label for="">Custos Insumos</label>
+                                    <div class="pt-1">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <div class="form-check">
+                                                    <input type="radio" name="custos_insumos" id="custos_insumos_sim" 
+                                                    class="form-check-input" checked>
+                                                    <label class="form-check-label" for="custos_insumos_sim">Sei</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input type="radio" name="custos_insumos" id="custos_insumos_nao" 
+                                                    class="form-check-input" onclick="custo_nao_sabe()">
+                                                    <label class="form-check-label" for="custos_insumos_nao">Não sei</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 d-flex align-items-center">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">R$</span>
+                                                    <input type="text" class="form-control" id="valor_insumo_input">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2 mt-1">
+                                    <label for="">Preço de Venda</label>
+                                    <div class="pt-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">R$</span>
+                                            <input type="text" class="form-control" id="valor_venda_input">
+                                        </div>
+                                    </div> 
+                                </div>                           
+                                <div class="col-2 mt-1">
+                                    <label for="">Lucro</label>
+                                    <div class="pt-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text">R$</span>
+                                            <input type="text" class="form-control" id="valor_lucro_input" disabled>
+                                        </div>
+                                    </div> 
+                                </div>                           
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col mt-4 d-flex justify-content-center">
+                            <div class="col-4"></div>
+                            <div class="col">
+                                <button class="btn btn-success" onclick="salvar_cliente()">
+                                    <i class="fa-solid fa-floppy-disk"></i>&nbsp;
+                                    Salvar
+                                </button>
+                                <button class="btn btn-primary" onclick="editar_cliente()">
+                                    <i class="fa-solid fa-pencil"></i>&nbsp;
+                                    Editar
+                                </button>
+                                <button class="btn btn-danger" onclick="limpar_dados()">
+                                    <i class="fa-solid fa-trash"></i>&nbsp;
+                                    Limpar Dados
+                                </button>
+                            </div>
+                            <div class="col-4"></div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </div>
+
+        <!-- Modal Cadastrar Insumos Produtos -->
+        <div class="modal fade" id="modal-insumo-produto" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="row w-100">
+                            <div class="col-11">
+                                <h5 class="fs-5 modal-title">Cadastro de Insumo de Produtos</h5>
+                            </div>
+                            <div class="col text-end">
+                                <button class="btn btn-danger" data-bs-dismiss="modal" onclick="reabrir_modal_cadastro_insumo()">
+                                    <i class="fa fa-x"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="div">
+                            <div class="row text-center">
+                                <div class="col-2 titulo-modal-insumo-nao-sei">Código</div>
+                                <div class="col-4 titulo-modal-insumo-nao-sei">Nome do Insumo</div>
+                                <div class="col-2 titulo-modal-insumo-nao-sei">Preço Unitário</div>
+                                <div class="col-2 titulo-modal-insumo-nao-sei">Qtd Utilizada</div>
+                                <div class="col-2 titulo-modal-insumo-nao-sei">Preço Total</div>
+                            </div>
+                        </div>
+                        <div class="div" id="modal-body-lista-insumos-nao-sei">
+                            
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-success">
+                                    <i class="fa fa-save"></i> &nbsp;Salvar
+                                </button>
+                                <button class="btn btn-danger">
+                                    <i class="fa fa-eraser"></i> &nbsp;Limpar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
             
+
+            
+
+        
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-        <script src="/SELLER/02 - JS/02-produtos.js"></script>
+        <script src="../02 - JS/02-produtos.js"></script>
+        <script src="../02 - JS/03-insumos.js"></script>
     </body>
 </html>
