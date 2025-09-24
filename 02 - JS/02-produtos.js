@@ -1,192 +1,430 @@
-const cadastros_insumos_fixos_PRODUTOS = []
-const cadastro_cod_insumos_fixos_PRODUTOS = []
-const lista_produtos = []
+// ARRAYS PRINCIPAIS
+const cadastros_insumos_fixos_PRODUTOS = [];
+const cadastro_cod_insumos_fixos_PRODUTOS = [];
+let lista_produtos = JSON.parse(localStorage.getItem("produtos")) || [];
+let lista_categorias_produtos = JSON.parse(localStorage.getItem("categorias")) || [];
+const valor_provisorio_lucro = 0;
 
+const button_percentual_shopee_editar = document.getElementById("button_percentual_shopee_editar");
+const button_percentual_shopee_salvar = document.getElementById("button_percentual_shopee_salvar");
+
+const select_tipo_venda = document.getElementById("select_tipo_venda").value;
+    const preco_venda = document.getElementById("valor_venda_input");
+    const percentual_shopee = document.getElementById("input_percentual_shopee");
+    const custo_insumos = document.getElementById("valor_insumo_input");
+
+    const lucro_shopee_input = document.getElementById("valor_lucro_shopee_input"); // input onde o lucro será exibido
+    const lucro_fisico_input = document.getElementById("valor_lucro_fisico_input"); // input onde o lucro será exibido
+    const lucro_misto_shopee_input = document.getElementById("valor_lucro_misto_shopee_input"); 
+    const lucro_misto_fisico_input = document.getElementById("valor_lucro_misto_fixo_input");
+let somaTotalInsumos = 0;
+
+
+
+/*
 document.addEventListener("DOMContentLoaded", function() {
-    custo_nao_sabe();
-});
-
-//ABRE O MODAL ASSIM QUE A PAGINA CARREGA
-window.onload = function gerar_codigo_insumo_fixo(){
-    const tam_lista_insumos_fixo = cadastro_cod_insumos_fixos_PRODUTOS.length;
-    codigo_insumo_fixo.value = tam_lista_insumos_fixo; 
-}
-
-//VARIAVEIS DECLARADAS
-var codigo_insumo_fixo = document.getElementById('codigo_insumo_fixo');
-var nome_insumo_fixo = document.getElementById('nome_insumo_fixo');
-var valor_insumo_fixo = document.getElementById('valor_insumo_fixo');
-var dias_insumo_fixo = document.getElementById('dias_insumo_fixo');
-var minutos_insumo_fixo = document.getElementById('minutos_insumo_fixo');
-var codigo_produto = document.getElementById("codigo_produto");
-var close_modal_cadastro_produto = document.getElementById("close-modal-cadastro-produto");
-
-//ATUALIZA O CAMPO DE CODIGO DE PRODUTO AUTOMATICAMENTE
-function atualiza_codigo_produto(){
-    codigo_produto.value = `PROD_${lista_produtos.length+1}`
-}
-
-//CALCULA OS MINUTOS NOS INSUMOS FIXOS
-function calcular_minutos(){
-    var minutos_trabalho = 60*8;
-
-    dias_insumo_fixo_valor = parseInt(dias_insumo_fixo.value)
-    valor_insumo_fixo_valor = parseFloat(valor_insumo_fixo.value)
-    if(isNaN(valor_insumo_fixo_valor)|| isNaN(dias_insumo_fixo_valor)){
-        minutos_insumo_fixo.value = 0;
-    }
-    else{
-        var valor_minuto_insumo = (valor_insumo_fixo_valor/dias_insumo_fixo_valor/minutos_trabalho).toFixed(2);
-        minutos_insumo_fixo.value = valor_minuto_insumo;
-    }
-}
-
-//SALVA O CADASTRO DE INSUMOS FIXOS
-function salvar_insumos_fixos(){
-const novo_insumo = {
-    codigo_insumo_fx : codigo_insumo_fixo.value,
-    nome_insumo_fx : nome_insumo_fixo.value,
-    valor_insumo_fx : valor_insumo_fixo.value,
-    dias_insumo_fx : dias_insumo_fixo.value,
-    minutos_insumo_fx : minutos_insumo_fixo.value,
-}
-
-//SALVA O OBJETO NO ARRAY DE INSUMOS FIXOS
-cadastros_insumos_fixos_PRODUTOS.push(novo_insumo);
-codigo_insumo_fixo.disabled = true;
-nome_insumo_fixo.disabled = true;
-valor_insumo_fixo.disabled = true;
-dias_insumo_fixo.disabled = true;
-minutos_insumo_fixo.disabled = true;
-}
-
-//MUDAR O ICONE DO FILTRO DE PESQUISA
-function seleciona_filtro_busca_produtos() {
-    var filtro = document.getElementById("filtroPesquisa").value;
-    var inputPesquisa = document.getElementById("searchInput");
-    var iconFiltro = document.getElementById("icon-filtro-pesquisa");
-
-    // Define ícone e placeholder
-    function avalia_coluna_produtos() {
-        if (filtro === "codigo") {
-            iconFiltro.className = "fa fa-solid fa-barcode";
-            inputPesquisa.placeholder = "Digite o Código do Produto";
-        } else if (filtro === "categoria") {
-            iconFiltro.className = "fa fa-solid fa-folder";
-            inputPesquisa.placeholder = "Digite a Categoria do Produto";
-        } else {
-            iconFiltro.className = "fa fa-solid fa-tag";
-            inputPesquisa.placeholder = "Digite o Nome do Produto";
-        }
+    // Atualiza o código do produto
+    const codigo_produto = document.getElementById("codigo_produto");
+    if(codigo_produto){
+        codigo_produto.value = `PROD_1`; // ou use sua função atualiza_codigo_produto()
     }
 
-    // Chama a função
-    avalia_coluna_produtos();
-}
+    // Abre o modal automaticamente
+    const modalEl = document.getElementById('modal_cadastro_produtos');
+    const modalInstance = new bootstrap.Modal(modalEl);
+    modalInstance.show();
+});*/
 
-function mostra_codigo_insumo_nao_sabe(i){
-    document.getElementById(`codigo_insumo_naosabe_${i}`).value = cadastro_cod_insumos_fixos_PRODUTOS[i] || "";
-}
 
-// ABRE MODAL PARA CALCULAR CUSTO DE INSUMO QUANDO NAO SABE
-// ABRE MODAL PARA CALCULAR CUSTO DE INSUMO QUANDO NAO SABE
+
+
+
+// FUNÇÕES GLOBAIS
+
+// Abre modal de insumos
 function custo_nao_sabe() {
-    // Carrega a lista de insumos variáveis do localStorage
-    const lista_insumos_variaveis = JSON.parse(localStorage.getItem("lista_insumos")) || [];
-    
-    // desabilita o input de custo
-    var input = document.getElementById("valor_insumo_input");
-    input.disabled = true;
-
-    // abre o modal
     const modalEl = document.getElementById('modal-insumo-produto');
-    const modal = new bootstrap.Modal(modalEl);
-    modal.show();
+    const modalInstance = new bootstrap.Modal(modalEl);
+    abrirModalInsumos(modalInstance);
+}
 
-    // fecha o modal de cadastro de produtos
-    document.getElementById("close-modal-cadastro-produto").click();
+// Reabre modal de cadastro de produto
+function reabrirModalCadastroProduto() {
+    const modalEl = document.getElementById('modal_cadastro_produtos');
+    const modalInstance = new bootstrap.Modal(modalEl);
+    modalInstance.show();
+}
 
-    const modalBodyListaInsumoNaoSei = document.getElementById("modal-body-lista-insumos-nao-sei");
-    modalBodyListaInsumoNaoSei.innerHTML = ""; // 🔥 limpa antes de recriar
+// Atualiza código do produto automaticamente
+function atualiza_codigo_produto() {
+    const codigo_produto = document.getElementById("codigo_produto");
+    if(codigo_produto) {
+        codigo_produto.value = `PROD_${lista_produtos.length + 1}`;
+    }
+}
 
-    // Itera sobre a lista de insumos variáveis para criar os inputs
-    for (let i = 0; i < lista_insumos_variaveis.length; i++) {
-        const insumo = lista_insumos_variaveis[i];
-        
-        modalBodyListaInsumoNaoSei.innerHTML += `
-        <div class="row">
+// Calcula total individual de cada insumo
+function calcularTotal(index){
+    const precoUnit = parseFloat(document.getElementById(`preco_unitario_naosabe_${index}`).value) || 0;
+    const qtd = parseInt(document.getElementById(`qtd_insumo_naosabe_${index}`).value) || 0;
+    document.getElementById(`preco_total_insumo_naosabe_${index}`).value = (precoUnit * qtd).toFixed(2);
+    calcularTotalGeral();
+}
+
+// Calcula total geral dos insumos
+function calcularTotalGeral(){
+    const lista_insumos_variaveis = JSON.parse(localStorage.getItem("lista_insumos")) || [];
+    let soma = 0;
+    lista_insumos_variaveis.forEach((_, i) => {
+        soma += parseFloat(document.getElementById(`preco_total_insumo_naosabe_${i}`).value) || 0;
+    });
+    const inputTotal = document.getElementById("total-valor-insumo-nao-sabe");
+    if(inputTotal) inputTotal.value = soma.toFixed(2);
+    somaTotalInsumos = soma;
+}
+
+// Abre modal de insumos e cria inputs
+function abrirModalInsumos(modalInstance){
+    const inputTotal = document.getElementById("total-valor-insumo-nao-sabe");
+    if(inputTotal) inputTotal.value = '';
+
+    const lista_insumos_variaveis = JSON.parse(localStorage.getItem("lista_insumos")) || [];
+    const inputValor = document.getElementById("valor_insumo_input");
+    if(inputValor) inputValor.disabled = true;
+
+    const modalBody = document.getElementById("modal-body-lista-insumos-nao-sei");
+    modalBody.innerHTML = "";
+
+    lista_insumos_variaveis.forEach((insumo, i) => {
+        modalBody.innerHTML += `
+        <div class="row mb-2">
+            <div class="col-2"><input type="text" class="form-control" value="${insumo.codigo}" disabled></div>
+            <div class="col-4"><input type="text" class="form-control" value="${insumo.nome}" disabled></div>
             <div class="col-2">
-                <input type="text" class="form-control" 
-                       value="${insumo.codigo}" disabled>
-            </div>
-            <div class="col-4">
-                <input type="text" class="form-control" 
-                       value="${insumo.nome}" disabled>
-            </div>
-            <div class="col-2">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">R$</span>
-                    </div>
-                    <input type="text" class="form-control"
-                           id="preco_unitario_naosabe_${i}"
-                           value="${insumo.preco_unitario}"
-                           disabled>
+                <div class="input-group">
+                    <span class="input-group-text">R$</span>
+                    <input type="text" class="form-control" id="preco_unitario_naosabe_${i}" value="${insumo.preco_unitario}" disabled>
                 </div>
             </div>
             <div class="col-2">
-                <input type="number" class="form-control" 
-                       id="qtd_insumo_naosabe_${i}" 
-                       min="0"
-                       oninput="calcularTotal(${i})">
+                <input type="number" class="form-control" id="qtd_insumo_naosabe_${i}" min="0" value="0" oninput="calcularTotal(${i})">
             </div>
             <div class="col-2">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">R$</span>
-                    </div>
-                    <input type="text" class="form-control"
-                           id="preco_total_insumo_naosabe_${i}" disabled>
+                <div class="input-group">
+                    <span class="input-group-text">R$</span>
+                    <input type="text" class="form-control" id="preco_total_insumo_naosabe_${i}" value="0" disabled>
                 </div>
             </div>
         </div>`;
+    });
+
+    modalInstance.show();
+}
+
+// Salva insumos do produto e atualiza valor
+function salvar_insumos_novo_produto(){
+    const inputValor = document.getElementById("valor_insumo_input");
+    if(inputValor) inputValor.value = somaTotalInsumos.toFixed(2);
+
+    // Fecha modal de insumos
+    const modalEl = document.getElementById('modal-insumo-produto');
+    const modalInstance = bootstrap.Modal.getInstance(modalEl);
+    if(modalInstance) modalInstance.hide();
+
+    // Reabre modal de cadastro de produto
+    reabrirModalCadastroProduto();
+}
+
+// Ao carregar o DOM
+document.addEventListener("DOMContentLoaded", function() {
+    const buttonFecharModal = document.getElementById('fechar_modal_insumo_produto');
+
+    // Fecha modal de insumos e reabre modal de cadastro
+    if(buttonFecharModal){
+        buttonFecharModal.addEventListener("click", function(){
+            const modalEl = document.getElementById('modal-insumo-produto');
+            const modalInstance = bootstrap.Modal.getInstance(modalEl);
+            if(modalInstance) modalInstance.hide();
+            reabrirModalCadastroProduto();
+        });
+    }
+});
+
+function editar_percentual_shopee(){
+    const input_percentual_shopee = document.getElementById("input_percentual_shopee");
+    const button_percentual_shopee_salvar = document.getElementById("button_percentual_shopee_salvar");
+    const button_percentual_shopee_editar = document.getElementById("button_percentual_shopee_editar");
+    input_percentual_shopee.disabled = false;
+    button_percentual_shopee_salvar.className = 'input-group-text btn btn-success d-block' 
+    button_percentual_shopee_editar.className = 'input-group-text btn btn-primary d-none' 
+}
+function salvar_percentual_shopee(){
+    const input_percentual_shopee = document.getElementById("input_percentual_shopee");
+    const button_percentual_shopee_salvar = document.getElementById("button_percentual_shopee_salvar");
+    const button_percentual_shopee_editar = document.getElementById("button_percentual_shopee_editar");
+    input_percentual_shopee.disabled = true;
+    button_percentual_shopee_salvar.className = 'input-group-text btn btn-sucess d-none' 
+    button_percentual_shopee_editar.className = 'input-group-text btn btn-primary d-block'
+
+    calcula_lucro_produto();
+}
+
+function verifica_tipo_venda(){
+    const select_tipo_venda = document.getElementById("select_tipo_venda");
+    const div_lucro_shopee = document.getElementById("div_lucro_shopee");
+    const div_lucro_fisica = document.getElementById("div_lucro_fisica");
+
+    switch (select_tipo_venda.value) {
+        case "vazio":
+            div_lucro_shopee.className = "col-2 mt-3 d-none";
+            div_lucro_fisica.className = "col-2 mt-3 d-none";
+            div_lucro_misto.className = "col-2 mt-3 d-none";
+            break;
+
+        case "venda_shopee":
+            div_lucro_shopee.className = "col-2 mt-3 d-block";
+            div_lucro_fisica.className = "col-2 mt-3 d-none";
+            div_lucro_misto.className = "col-2 mt-3 d-none";
+            break;
+
+        case "venda_fisica":
+            div_lucro_shopee.className = "col-2 mt-3 d-none";
+            div_lucro_fisica.className = "col-2 mt-3 d-block";
+            div_lucro_misto.className = "col-2 mt-3 d-none";
+            break;
+
+        default:
+            div_lucro_shopee.className = "col-2 mt-3 d-none";
+            div_lucro_fisica.className = "col-2 mt-3 d-none";
+            div_lucro_misto.className = "col mt-3 d-block";
+            break;
     }
 }
 
-// NOVO CÓDIGO: Função para calcular o total de cada item
-function calcularTotal(index) {
-    // Pega os elementos usando o índice
-    const precoUnitarioInput = document.getElementById(`preco_unitario_naosabe_${index}`);
-    const qtdInput = document.getElementById(`qtd_insumo_naosabe_${index}`);
-    const precoTotalInput = document.getElementById(`preco_total_insumo_naosabe_${index}`);
 
-    // Converte os valores para números (usando 0 se estiverem vazios)
-    const precoUnitario = parseFloat(precoUnitarioInput.value) || 0;
-    const quantidade = parseInt(qtdInput.value) || 0;
+function calcula_lucro_produto() {
+    const select_tipo_venda = document.getElementById("select_tipo_venda").value;
+    const preco_venda = document.getElementById("valor_venda_input");
+    const percentual_shopee = document.getElementById("input_percentual_shopee");
+    const custo_insumos = document.getElementById("valor_insumo_input");
 
-    // Calcula o total
-    const total = (precoUnitario * quantidade).toFixed(2);
+    const lucro_shopee_input = document.getElementById("valor_lucro_shopee_input"); // input onde o lucro será exibido
+    const lucro_fisico_input = document.getElementById("valor_lucro_fisico_input"); // input onde o lucro será exibido
+    const lucro_misto_shopee_input = document.getElementById("valor_lucro_misto_shopee_input"); 
+    const lucro_misto_fisico_input = document.getElementById("valor_lucro_misto_fixo_input");
 
-    // Atualiza o campo de preço total
-    precoTotalInput.value = total;
+    // Converte valores para float
+    let preco_venda_final = parseFloat(preco_venda.value.replace(",", ".")) || 0;
+    let percentual_shopee_final = parseFloat(percentual_shopee.value.replace(",", ".")) || 0;
+    let custo_insumo_final = parseFloat(custo_insumos.value.replace(",", ".")) || 0;
+
+    // Calcula lucro
+    let lucro_shopee = preco_venda_final - (preco_venda_final * (percentual_shopee_final / 100)) - custo_insumo_final;
+    let lucro_fisico = preco_venda_final - custo_insumo_final;
+
+    function mostra_lucro_fisica() {
+        if (lucro_fisico_input) lucro_fisico_input.value = lucro_fisico.toFixed(2);
+    }
+
+    function mostra_lucro_shopee() {
+        if (lucro_shopee_input) lucro_shopee_input.value = lucro_shopee.toFixed(2);
+    }
+
+    function mostra_lucro_misto() {
+        if (lucro_misto_shopee_input) lucro_misto_shopee_input.value = `R$ ${lucro_shopee.toFixed(2)}`;
+        if (lucro_misto_fisico_input) lucro_misto_fisico_input.value = `R$ ${lucro_fisico.toFixed(2)}`;
+    }
+
+    switch (select_tipo_venda) {
+        case "vazio":
+            console.log("Escolha Vazia");
+            break;
+
+        case "venda_shopee":
+            mostra_lucro_shopee();
+            break;
+
+        case "venda_fisica":
+            mostra_lucro_fisica();
+            break;
+
+        default:
+            mostra_lucro_misto();
+            break;
+    }
 }
 
-function reabrir_modal_cadastro_insumo(){
-    document.getElementById("button-cadastro-novo-produto").click();
+// Quando o DOM estiver pronto
+document.addEventListener("DOMContentLoaded", () => {
+    atualizar_select_categorias();
+});
+
+// Quando abrir o modal de cadastro de categorias
+document.getElementById("modal_cadastro_categorias_produtos").addEventListener("show.bs.modal", () => {
+    carregar_categorias_modal();
+});
+
+// Carrega categorias no modal
+function carregar_categorias_modal() {
+    const container = document.getElementById("categoria_produtos_cadastro_container");
+    container.innerHTML = "";
+
+    lista_categorias_produtos.forEach((categoria, index) => {
+        inserir_input_cadastro_categoria(index + 1, categoria, true);
+    });
+
+    // Sempre um input vazio extra
+    inserir_input_cadastro_categoria(lista_categorias_produtos.length + 1, "", false);
 }
 
-function adicionarInsumoFixo() {
-    let container = document.getElementById("card-insumo-fixo");
 
-    // pega o primeiro bloco como "modelo"
-    let bloco = container.querySelector(".bloco-insumo");
+    window.onload = () => {
+        carregar_categorias_modal();
+        atualizar_select_categorias();
+        atualizar_tabela_produtos();
+    };
 
-    // clona o bloco inteiro (true = clona filhos também)
-    let novoBloco = bloco.cloneNode(true);
+    // === CATEGORIAS ===
+    function carregar_categorias_modal() {
+        atualizar_select_categorias();
+    }
 
-    // limpa os inputs do clone
-    novoBloco.querySelectorAll("input").forEach(input => input.value = "");
+    function atualizar_select_categorias() {
+        const select = document.getElementById("select_categorias_produtos");
+        if (!select) return;
+        select.innerHTML = "";
 
-    // adiciona no container
-    container.appendChild(novoBloco);
-}
+        lista_categorias_produtos.forEach((cat, index) => {
+            const opt = document.createElement("option");
+            opt.value = index;
+            opt.textContent = cat;
+            select.appendChild(opt);
+        });
+    }
+
+    function inserir_input_cadastro_categoria(indice = lista_categorias_produtos.length + 1, valor = "", bloqueado = false) {
+        const container = document.getElementById("categoria_produtos_cadastro_container");
+        const html = `
+            <div class="row" id="row_categoria_${indice}">
+                <div class="input-group mt-2">
+                    <span class="input-group-text">
+                        <i class="fa-solid fa-list"></i>
+                    </span>
+                    <input type="text" class="form-control" 
+                        id="categoriaproduto_0${indice}"
+                        placeholder="Digite a categoria ${indice}"
+                        value="${valor}" ${bloqueado ? "disabled" : ""}>
+                    <button class="btn btn-success input-group-text"
+                        onclick="salvar_categoria_produto(${indice})">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                    </button>
+                    <button class="btn btn-primary input-group-text"
+                        onclick="editar_categoria_produto(${indice})">
+                        <i class="fa-solid fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger input-group-text"
+                        onclick="excluir_categoria_produto(${indice})">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+        container.insertAdjacentHTML("beforeend", html);
+    }
+
+    function salvar_categoria_produto(indice) {
+        const input_categoria = document.getElementById(`categoriaproduto_0${indice}`);
+        if (!input_categoria || input_categoria.value.trim() === "") {
+            alert("Digite uma categoria antes de salvar!");
+            return;
+        }
+
+        lista_categorias_produtos.push(input_categoria.value.trim());
+        localStorage.setItem("categorias", JSON.stringify(lista_categorias_produtos));
+        input_categoria.disabled = true;
+
+        atualizar_select_categorias();
+        inserir_input_cadastro_categoria();
+    }
+
+    function editar_categoria_produto(indice) {
+        const input_categoria = document.getElementById(`categoriaproduto_0${indice}`);
+        if (input_categoria) {
+            input_categoria.disabled = false;
+        }
+    }
+
+    function excluir_categoria_produto(indice) {
+        lista_categorias_produtos.splice(indice - 1, 1);
+        localStorage.setItem("categorias", JSON.stringify(lista_categorias_produtos));
+
+        const row = document.getElementById(`row_categoria_${indice}`);
+        if (row) row.remove();
+
+        atualizar_select_categorias();
+    }
+
+    // === PRODUTOS ===
+    function salvar_produto() {
+        const codigo = document.getElementById("codigo_produto").value.trim();
+        const nome = document.getElementById("nome_produto").value.trim();
+        const categoriaSelect = document.getElementById("select_categorias_produtos");
+        const categoria = categoriaSelect ? categoriaSelect.options[categoriaSelect.selectedIndex].text : "";
+        const custoInsumos = parseFloat(document.getElementById("valor_insumo_input").value) || 0;
+        const precoVenda = parseFloat(document.getElementById("valor_venda_input").value) || 0;
+        const localVenda = document.getElementById("select_tipo_venda").value;
+        const lucro = calcularLucro(custoInsumos, precoVenda);
+
+        if (!codigo || !nome || !categoria) {
+            alert("Preencha todos os campos obrigatórios (Código, Nome, Categoria).");
+            return;
+        }
+
+        const novoProduto = {
+            codigo,
+            nome,
+            categoria,
+            custo_insumos: custoInsumos,
+            preco_venda: precoVenda,
+            local_venda: localVenda,
+            lucro
+        };
+
+        lista_produtos.push(novoProduto);
+        localStorage.setItem("produtos", JSON.stringify(lista_produtos));
+
+        limpar_dados_produtos();
+        atualizar_tabela_produtos();
+    }
+
+    function limpar_dados_produtos() {
+        document.getElementById("codigo_produto").value = "";
+        document.getElementById("nome_produto").value = "";
+        document.getElementById("valor_insumo_input").value = 0;
+        document.getElementById("valor_venda_input").value = 0;
+        document.getElementById("select_tipo_venda").value = "vazio";
+    }
+
+    function atualizar_tabela_produtos() {
+        const tbody = document.getElementById("body-tabela-produtos");
+        tbody.innerHTML = "";
+
+        lista_produtos.forEach((produto) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${produto.codigo}</td>
+                <td>${produto.nome}</td>
+                <td>${produto.categoria}</td>
+                <td>R$ ${produto.custo_insumos.toFixed(2)}</td>
+                <td>R$ ${produto.preco_venda.toFixed(2)}</td>
+                <td>${produto.local_venda}</td>
+                <td>R$ ${produto.lucro.toFixed(2)}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // === SUA FUNÇÃO DE LUCRO EXISTENTE ===
+    function calcularLucro(custo, venda) {
+        return venda - custo;
+    }
