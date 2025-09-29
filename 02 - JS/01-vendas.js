@@ -1,3 +1,16 @@
+function avaliar_total_badge(){
+    if(window.total_badge.length === 0){
+        document.getElementById("badge-notificacao").innerText = 0;
+    } else {
+        document.getElementById("badge-notificacao").innerText = window.total_badge.length;
+    }
+}
+
+function muda_badge(){
+    window.total_badge.push(window.total_badge.length + 1);
+    document.getElementById("badge-notificacao").innerText = window.total_badge.length;
+}
+
 function configura_tipo_input(){
     var filtro = document.getElementById("filtroPesquisa").value;
     var input = document.getElementById("input_pesquisa_vendas");

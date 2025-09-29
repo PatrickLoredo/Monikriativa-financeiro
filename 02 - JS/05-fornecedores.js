@@ -1,3 +1,16 @@
+function atualizarBadge() {
+    document.getElementById("badge-notificacao").innerText = window.total_badge.length;
+}
+
+// Avalia total do badge ao carregar a página
+function avaliar_total_badge() {
+    if (window.total_badge.length === 0) {
+        document.getElementById("badge-notificacao").innerText = 0;
+    } else {
+        document.getElementById("badge-notificacao").innerText = window.total_badge.length;
+    }
+}
+
 // ==================== FORNECEDORES ====================
 
 // Carrega fornecedores já salvos, ou cria vazio

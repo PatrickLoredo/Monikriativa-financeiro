@@ -36,9 +36,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });*/
 
 
-
-
-
 // FUNÇÕES GLOBAIS
 
 // Abre modal de insumos
@@ -395,6 +392,7 @@ function carregar_categorias_modal() {
 
         limpar_dados_produtos();
         atualizar_tabela_produtos();
+        atualiza_codigo_produto();
     }
 
     function limpar_dados_produtos() {
