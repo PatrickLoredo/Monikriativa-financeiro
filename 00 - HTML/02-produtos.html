@@ -437,9 +437,9 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <div class="row w-100">
-                            <div class="col-8">
-                                <h5 class="fs-5 modal-title text-center fs-3 m-auto">
-                                    Cadastro de Insumo de Novo Produtos
+                            <div class="col-5">
+                                <h5 class="fs-5 modal-title text-center d-flex justify-content-center align-items-center fs-3 m-auto">
+                                    Cadastro de Insumo<br> de Novo Produtos
                                 </h5>
                             </div>
                             <div class="col-2">
@@ -464,6 +464,30 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-2 text-center">
+                                <label for="">Quantidade Padrão</label>
+                                <div class="input-group">
+                                    <input type="number" 
+                                    class="form-control text-center"
+                                    id="input_qtd_padrao_insumo">
+
+                                    <button 
+                                    class="btn btn-primary input-group-text d-none"
+                                    id="btn_salvar_qtd_padrao_insumo"
+                                    onclick="adicionar_qtd_padrao_insumos()">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+
+                                    <button 
+                                    class="btn btn-warning input-group-text d-block"
+                                    id="btn_editar_qtd_padrao_insumo"
+                                    onclick="editar_qtd_padrao_insumos()">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                </div>
+                            </div>
+
                             <div class="col text-end">
                                 <button class="btn btn-danger" 
                                 data-bs-dismiss="modal"
@@ -477,12 +501,25 @@
 
                     <div class="modal-body">
                         <div class="div">
+                            <div class="row mb-5 d-flex justify-content-center fs-5 modal-title" 
+                            style="text-transform: uppercase; letter-spacing: 1px; font-weight: bold; color: #14376c;">
+                                <div class="col-1"></div>
+                                <div class="col">
+                                    sessão de Insumos Fixos
+                               </div>
+                               <div class="col"></div>
+                            </div>
                             <div class="row text-center">
                                 <div class="col-2 titulo-modal-insumo-nao-sei">Código</div>
-                                <div class="col-4 titulo-modal-insumo-nao-sei">Nome do Insumo</div>
-                                <div class="col-2 titulo-modal-insumo-nao-sei">Preço Unitário</div>
-                                <div class="col-2 titulo-modal-insumo-nao-sei">Qtd Utilizada</div>
-                                <div class="col-2 titulo-modal-insumo-nao-sei">Preço Total</div>
+                                <div class="col-3 titulo-modal-insumo-nao-sei">Nome do Insumo</div>
+                                <div class="col-3 titulo-modal-insumo-nao-sei">Preço Unitário</div>
+                                <div class="col titulo-modal-insumo-nao-sei">Qtd Utilizada</div>
+                                <div class="col-3 titulo-modal-insumo-nao-sei">Preço Total</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="row" id="modal-body-lista-insumos-fixos-nao-sei">
+                            
                             </div>
                         </div>
                         <div class="div" id="modal-body-lista-insumos-nao-sei">

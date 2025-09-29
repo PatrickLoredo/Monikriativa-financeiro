@@ -9,15 +9,81 @@ const button_percentual_shopee_editar = document.getElementById("button_percentu
 const button_percentual_shopee_salvar = document.getElementById("button_percentual_shopee_salvar");
 
 const select_tipo_venda = document.getElementById("select_tipo_venda").value;
-    const preco_venda = document.getElementById("valor_venda_input");
-    const percentual_shopee = document.getElementById("input_percentual_shopee");
-    const custo_insumos = document.getElementById("valor_insumo_input");
+const preco_venda = document.getElementById("valor_venda_input");
+const percentual_shopee = document.getElementById("input_percentual_shopee");
+const custo_insumos = document.getElementById("valor_insumo_input");
 
-    const lucro_shopee_input = document.getElementById("valor_lucro_shopee_input"); // input onde o lucro será exibido
-    const lucro_fisico_input = document.getElementById("valor_lucro_fisico_input"); // input onde o lucro será exibido
-    const lucro_misto_shopee_input = document.getElementById("valor_lucro_misto_shopee_input"); 
-    const lucro_misto_fisico_input = document.getElementById("valor_lucro_misto_fixo_input");
+const lucro_shopee_input = document.getElementById("valor_lucro_shopee_input"); // input onde o lucro será exibido
+const lucro_fisico_input = document.getElementById("valor_lucro_fisico_input"); // input onde o lucro será exibido
+const lucro_misto_shopee_input = document.getElementById("valor_lucro_misto_shopee_input"); 
+const lucro_misto_fisico_input = document.getElementById("valor_lucro_misto_fixo_input");
 let somaTotalInsumos = 0;
+
+const qtd_insumo_padrao = document.getElementById("input_qtd_padrao_insumo");
+const btn_salvar_qtd_padrao_insumo = document.getElementById("btn_salvar_qtd_padrao_insumo");
+const btn_editar_qtd_padrao_insumo = document.getElementById("btn_editar_qtd_padrao_insumo");
+
+qtd_insumo_padrao.disabled = true;
+
+document.getElementById("modal-insumo-produto").addEventListener("show.bs.modal", carregarInsumosFixos);
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Seleciona o modal
+    var modalInsumoProduto = new bootstrap.Modal(document.getElementById('modal-insumo-produto'));
+
+    // Exibe o modal automaticamente
+    modalInsumoProduto.show();
+});
+
+
+function carregarInsumosFixos() {
+    const listaInsumos = JSON.parse(localStorage.getItem("lista_insumos_fixos")) || [[], [], [], [], []];
+    const div = document.getElementById("modal-body-lista-insumos-fixos-nao-sei");
+    div.innerHTML = "";
+
+    const quantidadeInsumos = listaInsumos[0].length;
+
+    for (let i = 0; i < quantidadeInsumos; i++) {
+        const codigo = listaInsumos[0][i];
+        const nome = listaInsumos[1][i];
+        const custoTotal = listaInsumos[2][i];
+        const diasTrabalho = listaInsumos[3][i];
+        const custoMinuto = listaInsumos[4][i];
+
+        const item = document.createElement("div");
+        item.classList.add("row", "text-center");
+
+        item.innerHTML = `
+            <div class="row my-1">  
+                <div class="col-2">
+                    <input class="form-control text-center" value="${codigo}" disabled>
+                </div>
+                <div class="col-4">
+                    <input class="form-control text-center" value="${nome}" disabled>
+                </div>
+                <div class="col-2">
+                    <input class="form-control text-center" value="R$ ${custoMinuto}" disabled>
+                </div>
+                <div class="col-2">
+                    <input class="form-control text-center" type="number" id="calculo_insumo_fixo_${i}" oninput="calcular_insumo_fixo(${i}, ${custoMinuto})">
+                </div>
+                <div class="col-2">
+                    <input class="form-control text-center" type="text" id="resultado_insumo_fixo_${i}" value="R$ 0" disabled>
+                </div>
+            </div>
+        `;
+        div.appendChild(item);
+    }
+}
+
+function calcular_insumo_fixo(i, custoMinuto) {
+    const qtd_utilizada = parseFloat(document.getElementById(`calculo_insumo_fixo_${i}`).value) || 0;
+    const custo_total = custoMinuto * qtd_utilizada;
+    document.getElementById(`resultado_insumo_fixo_${i}`).value = `R$ ${custo_total.toFixed(2)}`;
+}
+
+
 
 
 
@@ -68,6 +134,19 @@ function calcularTotal(index){
     calcularTotalGeral();
 }
 
+function adicionar_qtd_padrao_insumos(){
+    btn_salvar_qtd_padrao_insumo.className = "btn btn-primary input-group-text d-none";
+    btn_editar_qtd_padrao_insumo.className = "btn btn-warning input-group-text d-block";
+    qtd_insumo_padrao.disabled = true;
+
+}
+
+function editar_qtd_padrao_insumos(){
+    qtd_insumo_padrao.disabled = false;
+    btn_salvar_qtd_padrao_insumo.className = "btn btn-primary input-group-text d-block";
+    btn_editar_qtd_padrao_insumo.className = "btn btn-warning input-group-text d-none";
+}
+
 // Calcula total geral dos insumos
 function calcularTotalGeral(){
     const lista_insumos_variaveis = JSON.parse(localStorage.getItem("lista_insumos")) || [];
@@ -82,6 +161,7 @@ function calcularTotalGeral(){
 
 // Abre modal de insumos e cria inputs
 function abrirModalInsumos(modalInstance){
+    document.getElementById("input_qtd_padrao_insumo")
     const inputTotal = document.getElementById("total-valor-insumo-nao-sabe");
     if(inputTotal) inputTotal.value = '';
 
@@ -95,21 +175,44 @@ function abrirModalInsumos(modalInstance){
     lista_insumos_variaveis.forEach((insumo, i) => {
         modalBody.innerHTML += `
         <div class="row mb-2">
-            <div class="col-2"><input type="text" class="form-control" value="${insumo.codigo}" disabled></div>
-            <div class="col-4"><input type="text" class="form-control" value="${insumo.nome}" disabled></div>
             <div class="col-2">
+                <!--CODIGO INSUMO FIXO-->
+                <input type="text" 
+                class="form-control" value="${insumo.codigo}" 
+                disabled>
+            </div>
+
+            <div class="col-4">
+                <!--NOME INSUMO FIXO-->
+                <input type="text" 
+                class="form-control" value="${insumo.nome}" 
+                disabled>
+            </div>
+
+            <div class="col-2">
+                <!--PRECO UNITÁRIO INSUMO FIXO-->
                 <div class="input-group">
                     <span class="input-group-text">R$</span>
-                    <input type="text" class="form-control" id="preco_unitario_naosabe_${i}" value="${insumo.preco_unitario}" disabled>
+                    <input type="text" class="form-control" 
+                    id="preco_unitario_naosabe_${i}" 
+                    value="${insumo.preco_unitario}" disabled>
                 </div>
             </div>
+
             <div class="col-2">
-                <input type="number" class="form-control" id="qtd_insumo_naosabe_${i}" min="0" value="0" oninput="calcularTotal(${i})">
+                <!--QUANTIDADE UTILIZADA INSUMO FIXO-->
+                <input type="number" class="form-control" 
+                id="qtd_insumo_naosabe_${i}" min="0" 
+                value="0" oninput="calcularTotal(${i})">
             </div>
+
             <div class="col-2">
+                <!--VALOR FINAL INSUMO FIXO-->
                 <div class="input-group">
                     <span class="input-group-text">R$</span>
-                    <input type="text" class="form-control" id="preco_total_insumo_naosabe_${i}" value="0" disabled>
+                    <input type="text" class="form-control" 
+                    id="preco_total_insumo_naosabe_${i}" 
+                    value="0" disabled>
                 </div>
             </div>
         </div>`;
